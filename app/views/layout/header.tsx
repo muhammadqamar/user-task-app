@@ -1,16 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState } from "react";
-import { signOut } from "next-auth/react";
-import styles from "./layout.module.css"; // Import CSS module
+import { signOut, useSession } from "next-auth/react";
+import styles from "./layout.module.css";
 import Image from "next/image";
 
 export const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const response: any = useSession();
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  // async function keycloakSessionLogOut() {
+  //   try {
+  //     await fetch(`/api/auth/logout`, { method: "GET" });
+  //   } catch (err) {
+  //     // eslint-disable-next-line no-console
+  //     console.error(err);
+  //   }
+  // }
   return (
     <header className={styles.header}>
       <div className={styles.leftSection}>
@@ -25,7 +34,9 @@ export const Header = () => {
       </div>
       <div className={styles.rightSection}>
         <div className={styles.profile} onClick={toggleDropdown}>
-          <span className={styles.profileName}>John Doe</span>
+          <span className={styles.profileName}>
+            {response?.data?.user?.name}
+          </span>
           <Image
             src="/images/profile-avatar.svg"
             alt="Profile"
@@ -38,7 +49,11 @@ export const Header = () => {
               <button
                 className={styles.logoutButton}
                 onClick={() => {
-                  signOut();
+                  // keycloakSessionLogOut().then(() =>
+                  signOut({
+                    callbackUrl: "/",
+                  });
+                  // );
                 }}
               >
                 Logout
