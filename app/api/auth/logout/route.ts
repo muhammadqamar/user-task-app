@@ -18,13 +18,8 @@ export async function GET(): Promise<Response> {
       process.env.NEXTAUTH_URL || ""
     )}`;
 
-    try {
-      await fetch(url, { method: "GET" });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      console.log("err", err);
-      return new Response("Error during logout", { status: 500 });
-    }
+    await fetch(url, { method: "GET" });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }
   return new Response(null, { status: 200 });
 }
