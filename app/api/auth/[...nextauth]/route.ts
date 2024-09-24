@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import KeycloakProvider from "next-auth/providers/keycloak";
 import { jwtDecode } from "jwt-decode";
-import { encrypt } from "@/utils/decoders";
+// import { encrypt } from "@/app/utils/encryption";
 
 // async function refreshAccessToken(token) {
 //   const resp = await fetch(
@@ -30,7 +30,8 @@ import { encrypt } from "@/utils/decoders";
 //   };
 // }
 
-export const authOptions = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const authOptions: any = {
   providers: [
     KeycloakProvider({
       clientId: `${process.env.KEYCLOAK_CLIENT_ID}`,
@@ -40,7 +41,7 @@ export const authOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, account }:unknown) {
+    async jwt({ token, account }: unknown) {
       const nowTimeStamp = Math.floor(Date.now() / 1000);
 
       if (account) {
@@ -55,15 +56,15 @@ export const authOptions = {
         return token;
       }
 
-    //   try {
-    //     const refreshedToken = await refreshAccessToken(token);
+      //   try {
+      //     const refreshedToken = await refreshAccessToken(token);
 
-    //     return refreshedToken;
-    //   } catch (error) {
-    //     return { ...token, error: "RefreshAccessTokenError" };
-    //   }
+      //     return refreshedToken;
+      //   } catch (error) {
+      //     return { ...token, error: "RefreshAccessTokenError" };
+      //   }
     },
-    async session({ session, token }:unknown) {
+    async session({ session, token }: unknown) {
       session.access_token = token.access_token;
       session.id_token = token.id_token;
       session.roles = token.decoded.realm_access.roles;

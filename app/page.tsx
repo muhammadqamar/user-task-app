@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useSession } from "next-auth/react";
+
 import {
   useInitLH,
   ListTasks,
@@ -9,14 +11,14 @@ import {
 
 import styles from "./page.module.css";
 
-type SessionType = {
-  data: {
-    access_token: string;
-  };
-};
+// type SessionType = {
+//   data: {
+//     access_token: string;
+//   };
+// };
 export default function Home() {
-  const response: SessionType = useSession();
-
+  const response: any = useSession();
+  console.log("response", response);
   const { isAuthorized } = useInitLH({
     tenantId: process.env.KEYCLOAK_REALM,
     sessionToken: response?.data?.access_token,
