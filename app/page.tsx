@@ -13,12 +13,20 @@ import styles from "./page.module.css";
 
 // type SessionType = {
 //   data: {
+//     user: {
+//       name: string;
+//       email: string;
+//     };
+//     expires: string;
 //     access_token: string;
+//     id_token: string;
+//     roles: string[];
 //   };
+//   status: string;
+//   update: () => void;
 // };
 export default function Home() {
   const response: any = useSession();
-  console.log("response", response);
   const { isAuthorized } = useInitLH({
     tenantId: process.env.KEYCLOAK_REALM,
     sessionToken: response?.data?.access_token,
