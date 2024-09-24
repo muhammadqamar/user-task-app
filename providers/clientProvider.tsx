@@ -17,8 +17,7 @@ const ClientProvider: React.FC<ClientProviderProps> = ({ children }) => {
   if (status === NEXT_AUTH_STATUS.LOADING) {
     return <Loader />;
   }
-  // if (status === NEXT_AUTH_STATUS.SUCCESS) {
-  if (true) {
+  if (status === NEXT_AUTH_STATUS.SUCCESS) {
     return <LHContextProvider>{children}</LHContextProvider>;
   } else {
     router.push("/api/auth/signin");
