@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../[...nextauth]/route";
-import { getIdToken } from "@/app/utils/SessionTokens";
+import { authOptions } from "@/utils/authOptions";
+import { getIdToken } from "@/utils/SessionTokens";
 
 export async function GET(): Promise<Response> {
   const session = await getServerSession(authOptions);

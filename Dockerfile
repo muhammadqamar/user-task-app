@@ -1,23 +1,29 @@
-# Use the official Node.js image as the base image
-FROM node:18-alpine
 
-# Set the working directory
+FROM ghcr.io/littlehorse-enterprises/alpine-nginx-nodejs/nginx-nodejs:main as runner
+ENV NODE_ENV production
+
+RUN apk add --no-cache uuidgen
+
+RUN mkdir /app
 WORKDIR /app
+RUN mkdir .next
 
-# Copy package.json and package-lock.json files
-COPY package*.json ./
 
-# Install dependencies
-RUN npm install
 
-# Copy the rest of your application code
-COPY . .
+# Copy the entire .next folder
+# COPY ./.next ./.next
 
-# Build the Next.js application
-RUN npm run build
+# Copy the public folder if you have static assets there
+COPY ./public ./public
 
-# Expose the port that the app runs on
+# Copy package.json and install only production dependencies
+COPY ./package.json ./package.json
+COPY ./package-lock.json ./package-lock.json
+
+COPY ./entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
 EXPOSE 3000
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
 
-# Start the Next.js application
-CMD ["npm", "start"]
+ENTRYPOINT [ "./entrypoint.sh" ]

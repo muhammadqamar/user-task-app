@@ -1,0 +1,75 @@
+name: publish-docker
+run-name: Publish Docker Images
+on:
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: false
+        default: ''
+permissions:
+  packages: write
+  contents: read
+jobs:
+
+  lh-user-task-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Dashboard
+        working-directory: ./
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build and Publish
+        uses: littlehorse-enterprises/publish-image@v1
+        with:
+          image-name: lh-user-task-app
+          dockerfile: /Dockerfile
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=ref,event=branch
+
+
+    runs-on: ubuntu-latest
+    needs:
+      - build-server
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Dashboard
+        working-directory: ./dashboard
+        run: |
+          npm ci
+          npm run build
+
+      - name: Dowload Server Jar artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: server-jar
+          path: server/build/libs/
+
+      - name: Build and Publish
+        uses: littlehorse-enterprises/publish-image@v1
+        with:
+          image-name: lh-standalone
+          dockerfile: docker/standalone/Dockerfile
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=ref,event=branch
