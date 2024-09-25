@@ -1,0 +1,33 @@
+name: main
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Dashboard
+        working-directory: ./
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build and Publish
+        uses: littlehorse-enterprises/publish-image@v1
+        with:
+          image-name: user-tasks-app
+          registry: ecr
