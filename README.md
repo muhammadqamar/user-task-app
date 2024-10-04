@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LH UserTask Ui
 
-## Getting Started
+## Environment Variables
 
-First, run the development server:
+If running the app without Docker, you need to fill in the environment variables in the `.env.local` at the root folder. 
+- `NEXTAUTH_SECRET` Cecret for next-auth
+- `KEYCLOAK_HOST` Url for keycloak issuer
+- `KEYCLOAK_REALM` Keycloak Realm
+- `KEYCLOAK_CLIENT_ID` Keycloack client id
+- `SERVER_URL` User-Task proxy Url
 
-```bash
+## Development
+
+Create a copy of `.env-sample` as `.env-local` and modify it accordingly to your littlehorse-server and keycloak configuration.
+
+Then simply run
+
+```shell
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will start with watch mode on [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Start the UserTask Ui with Docker
 
-## Learn More
+2. Build the docker image
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+npm run build
+docker build -t your-image-name .
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+docker run --rm \
+  --env NEXTAUTH_SECRET='{secret}' \
+  --env KEYCLOAK_HOST='{host url}' \
+  --env KEYCLOAK_REALM='{realm name}' \
+  --env KEYCLOAK_CLIENT_ID='{client-id}' \
+  --env SERVER_URL='{SERVER_URL}'
+  your-image-name
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
