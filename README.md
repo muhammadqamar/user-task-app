@@ -2,12 +2,14 @@
 
 ## Environment Variables
 
-If running the app without Docker, you need to fill in the environment variables in the `.env.local` at the root folder. 
+If running the app without Docker, you need to fill in the environment variables in the `.env.local` at the root folder.
+
 - `NEXTAUTH_SECRET` Cecret for next-auth
 - `KEYCLOAK_HOST` Url for keycloak issuer
 - `KEYCLOAK_REALM` Keycloak Realm
 - `KEYCLOAK_CLIENT_ID` Keycloack client id
-- `SERVER_URL` User-Task proxy Url
+- `NEXT_PUBLIC_SERVER_URL` User-Task proxy Url
+- `NEXT_PUBLIC_KEYCLOAK_REALM` Keycloak Realm
 
 ## Development
 
@@ -21,7 +23,6 @@ npm run dev
 ```
 
 The application will start with watch mode on [http://localhost:3000](http://localhost:3000)
-
 
 ## Start the UserTask Ui with Docker
 
@@ -38,7 +39,8 @@ docker run --rm \
   --env KEYCLOAK_HOST='{host url}' \
   --env KEYCLOAK_REALM='{realm name}' \
   --env KEYCLOAK_CLIENT_ID='{client-id}' \
-  --env SERVER_URL='{SERVER_URL}'
+  --env NEXT_PUBLIC_KEYCLOAK_REALM='{realm name}' \
+  --env NEXT_PUBLIC_SERVER_URL='{SERVER_URL}'
   your-image-name
 
 ```
