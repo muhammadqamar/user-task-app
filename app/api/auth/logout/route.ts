@@ -12,11 +12,7 @@ export async function GET(): Promise<Response> {
       return new Response("ID Token not found", { status: 400 });
     }
 
-    const url = `${process.env.KEYCLOAK_HOST}/realms/${
-      process.env.KEYCLOAK_REALM
-    }/protocol/openid-connect/logout?id_token_hint=${idToken}&post_logout_redirect_uri=${encodeURIComponent(
-      process.env.NEXTAUTH_URL || ""
-    )}`;
+    const url = `${process.env.KEYCLOAK_HOST}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/logout?id_token_hint=${idToken}`;
 
     await fetch(url, { method: "GET" });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

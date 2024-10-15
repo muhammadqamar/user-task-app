@@ -6,10 +6,11 @@ RUN mkdir -p /app/.next
 
 COPY ./entrypoint.sh ./
 COPY ./.next/standalone ./
+COPY ./public ./public
 COPY ./.next/static ./.next/static
 
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-ENTRYPOINT [ "./entrypoint.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
