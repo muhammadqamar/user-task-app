@@ -11,6 +11,18 @@ If running the app without Docker, you need to fill in the environment variables
 - `NEXT_PUBLIC_SERVER_URL` User-Task proxy Url
 - `NEXT_PUBLIC_KEYCLOAK_REALM` Keycloak Realm
 
+
+## Prerequisites
+
+Before starting the UserTask UI, ensure that the following services are running:
+
+1. **Littlehorse Server**
+2. **Keycloak Server**
+3. **LH UserTasks Proxy Server**
+
+For detailed instructions on setting up these servers, please refer to the [Littlehorse documentation](https://github.com/littlehorse-enterprises/lh-user-tasks-api/blob/main/README.md).
+
+
 ## Development
 
 Create a copy of `.env-sample` as `.env-local` and modify it accordingly to your littlehorse-server and keycloak configuration.
