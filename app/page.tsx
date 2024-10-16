@@ -25,10 +25,6 @@ export default function Home() {
     fetchData();
   }, []);
 
-  // if (!initLhConfig?.tenantId) {
-  //   return null;
-  // }
-
   const { isAuthorized } = useInitLH({
     tenantId: initLhConfig.tenantId,
     sessionToken: response?.data?.access_token,
@@ -41,7 +37,6 @@ export default function Home() {
         <>
           <UserInfo />
           <ListTasks admin />
-          <ListTasks />
         
         </>
       )}
