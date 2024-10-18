@@ -13,15 +13,7 @@ export const Header = () => {
   };
 
   async function keycloakSessionLogOut() {
-    try {
-      await fetch(`/api/auth/logout`, { method: "GET" });
-      signOut({
-        callbackUrl: "/",
-      });
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error(err);
-    }
+    signOut();
   }
 
   return (
