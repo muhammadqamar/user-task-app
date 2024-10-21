@@ -3,7 +3,3 @@ export enum NEXT_AUTH_STATUS  {
     LOADING = 'loading',
 }
 
-export type keycloakconfigType = {
-    serverUrl?: string,
-    tenantId?: string,
-}
