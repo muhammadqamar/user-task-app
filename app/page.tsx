@@ -1,32 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-import { useSession } from "next-auth/react";
-
-import {
-  useInitLH,
-  ListTasks,
-  UserInfo,
-} from "@littlehorse-enterprises/user-tasks";
-
+import { UserTaskInit } from "@/app/components/userTaskInit";
+import { keycloakconfigType } from "@/types/keycloak";
 import styles from "./page.module.css";
 
+const keycloakconfig: keycloakconfigType = {
+  serverUrl: process.env.SERVER_URL,
+  tenantId: process.env.KEYCLOAK_REALM,
+};
+
 export default function Home() {
-  const response: any = useSession();
-
-  const { isAuthorized } = useInitLH({
-    tenantId: process.env.NEXT_PUBLIC_KEYCLOAK_REALM,
-    sessionToken: response?.data?.access_token,
-    url: process.env.NEXT_PUBLIC_SERVER_URL,
-  });
-
   return (
     <div className={styles.page}>
-      {isAuthorized && (
-        <>
-          <UserInfo />
-          <ListTasks admin />
-        </>
-      )}
+      <UserTaskInit {...keycloakconfig} />
     </div>
   );
 }

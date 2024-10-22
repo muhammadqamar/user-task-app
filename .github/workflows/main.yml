@@ -29,5 +29,5 @@ jobs:
       - name: Build and Publish
         uses: littlehorse-enterprises/publish-image@v1
         with:
-          image-name: user-tasks-app
+          image-name: lh-user-tasks-ui
           registry: ecr
