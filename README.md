@@ -2,12 +2,24 @@
 
 ## Environment Variables
 
-If running the app without Docker, you need to fill in the environment variables in the `.env.local` at the root folder. 
-- `NEXTAUTH_SECRET` Cecret for next-auth
+If running the app without Docker, you need to fill in the environment variables in the `.env.local` at the root folder.
+
+- `NEXTAUTH_SECRET` Secret for next-auth
 - `KEYCLOAK_HOST` Url for keycloak issuer
 - `KEYCLOAK_REALM` Keycloak Realm
 - `KEYCLOAK_CLIENT_ID` Keycloack client id
 - `SERVER_URL` User-Task proxy Url
+
+## Prerequisites
+
+Before starting the UserTask UI, ensure that the following services are running:
+
+1. **Littlehorse Server**
+2. **Keycloak Server**
+3. **LH UserTasks Proxy Server**
+
+For detailed instructions on setting up these servers, please refer to the [Littlehorse documentation](https://github.com/littlehorse-enterprises/lh-user-tasks-api/blob/main/README.md).
+
 
 ## Development
 
@@ -21,7 +33,6 @@ npm run dev
 ```
 
 The application will start with watch mode on [http://localhost:3000](http://localhost:3000)
-
 
 ## Start the UserTask Ui with Docker
 
@@ -38,7 +49,7 @@ docker run --rm \
   --env KEYCLOAK_HOST='{host url}' \
   --env KEYCLOAK_REALM='{realm name}' \
   --env KEYCLOAK_CLIENT_ID='{client-id}' \
+  --env KEYCLOAK_CLIENT_SECRET='{client-secret}' \
   --env SERVER_URL='{SERVER_URL}'
   your-image-name
-
 ```

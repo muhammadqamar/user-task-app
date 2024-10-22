@@ -1,6 +1,5 @@
 {
-  "name": "user-task-app",
-  "version": "0.1.0",
+  "name": "user-tasks-ui",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -12,14 +12,10 @@ export const Header = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  // async function keycloakSessionLogOut() {
-  //   try {
-  //     await fetch(`/api/auth/logout`, { method: "GET" });
-  //   } catch (err) {
-  //     // eslint-disable-next-line no-console
-  //     console.error(err);
-  //   }
-  // }
+  async function keycloakSessionLogOut() {
+    signOut();
+  }
+
   return (
     <header className={styles.header}>
       <div className={styles.leftSection}>
@@ -48,13 +44,7 @@ export const Header = () => {
             <div className={styles.dropdownMenu}>
               <button
                 className={styles.logoutButton}
-                onClick={() => {
-                  // keycloakSessionLogOut().then(() =>
-                  signOut({
-                    callbackUrl: "/",
-                  });
-                  // );
-                }}
+                onClick={keycloakSessionLogOut}
               >
                 Logout
               </button>
